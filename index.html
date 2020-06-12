@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    
+    <!-- My External SCript -->
+    <script src="app.js"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     
@@ -38,24 +40,26 @@
       <main class="container">
         <h3 class="mt-4">Cadastro de nova despesa</h3>
         
-        <form>
+        <form> <!-- Inicio Formulário de cadastro -->
           <div class="form-row">
-            <input type="date" class="col border form-control m-2">
-            <select id="inputState" class="col form-control m-2">
-              <option disabled selected>Tipo</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
+            <input id="data" type="date" class="col-sm border form-control m-2">
+            <select id="tipo" class="col-sm form-control m-2">
+              <option value="" disabled selected>Tipo</option>
+              <option value="1">Alimentação</option>
+              <option value="2">Educação</option>
+              <option value="3">Lazer</option>
+              <option value="4">Saúde</option>
+              <option value="5">Transporte</option>
             </select>
           </div>
 
           <div class="form-row">
-            <input class="col form-control m-2" type="text" placeholder="Descrição">
-            <input class="col form-control m-2" type="number" placeholder="Valor">
+            <input id="descricao" class="col-sm form-control m-2" type="text" placeholder="Descrição">
+            <input id="valor" class="col-sm form-control m-2" type="number" placeholder="Valor">
             
-            <button class="btn btn-primary m-2"> <i class="fas fa-plus"></i> </button>
+            <button class="btn btn-primary m-2" onclick="cadastrarDespesa()" type="button"> <i class="fas fa-plus"></i> </button>
           </div>
-        </form>
+        </form> <!-- Inicio Formulário de cadastro -->
   
       </main>
 
