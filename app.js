@@ -40,6 +40,21 @@ class Bd{
 
     localStorage.setItem('id', id);
   }
+
+  recuperarTodosRegistros(){
+    console.log('Estamos chegando aqui...');
+    let i;
+    let items = Array();
+    for(i=0; i<=localStorage.length; i++){
+      let item = JSON.parse( localStorage.getItem(i) );
+      if(item == null){
+        continue
+      }
+      items.push(item);
+    }
+    return items;
+    
+  }
 }
 
 let bd = new Bd();
@@ -85,6 +100,51 @@ function cadastrarDespesa(){
     $('#registraDespesa').modal('show');
   }
 }
+
+function carregaListaDespesas(){
+  let items = Array();
+
+  items = bd.recuperarTodosRegistros();
+
+  let listaItens = document.getElementById('listaItens');
+
+  items.forEach( x => {
+    
+    // Criando as linhas
+    let linha = listaItens.insertRow();
+    
+    // Criando as colunas
+    linha.insertCell(0).innerHTML = x.data;
+    //Ajustando o tipo 
+    switch(x.tipo){
+      case '1': x.tipo = 'Alimentação';
+        break;
+      case '2': x.tipo = 'Educação';
+        break;
+      case '3': x.tipo = 'Lazer';
+        break;
+      case '4': x.tipo = 'Saúde';
+        break;
+      case '5': x.tipo = 'Transporte';
+        break;
+    }
+    linha.insertCell(1).innerHTML = x.tipo;
+    linha.insertCell(2).innerHTML = x.descricao; 
+    linha.insertCell(3).innerHTML = x.valor; 
+     
+
+  });
+
+}
+
+
+{/* <tbody id="listaItens">
+            <tr>
+              <th scope="row">04/02/2020</th>
+              <td>Saúde</td>
+              <td>Dentista</td>
+              <td>90.00</td>
+            </tr> */}
 
 
 
