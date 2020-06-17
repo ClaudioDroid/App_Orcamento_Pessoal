@@ -53,13 +53,18 @@ class Bd{
       items.push(item);
     }
     return items;
-    
+  }
+
+  pesquisar(itens){
+    console.log(itens);
   }
 }
 
 let bd = new Bd();
 
+
  /* -- -- -- -- Funções -- -- -- -- */
+// Cadastra uma nova despesa inserida pelo usuário.
 function cadastrarDespesa(){
   let data = document.getElementById('data');
   let tipo = document.getElementById('tipo');
@@ -79,13 +84,14 @@ function cadastrarDespesa(){
     document.getElementById('exampleModalLabel').innerHTML = 'Cadastrado com sucesso'
     document.getElementById('modal-bodyId').innerHTML = 'Os dados foram cadastrado com sucesso!'
 
-    // document.getElementById('modal-headerId').classList.remove('text-danger')
-    // document.getElementById('btnVoltar').classList.remove('btn-danger');
     document.getElementById('modal-headerId').className = 'modal-header text-success';
     document.getElementById('btnVoltar').className = 'btn-success';
 
     $('#registraDespesa').modal('show');
     console.log('Dados válidos!');
+
+    // Limpando os campos que foram preenchidos.
+    limpaCampos();
   }else{
     document.getElementById('exampleModalLabel').innerHTML = 'Erro no cadastro'
     document.getElementById('modal-bodyId').innerHTML = 'Existem campos que não foram preenchidos!'
@@ -93,14 +99,11 @@ function cadastrarDespesa(){
     document.getElementById('modal-headerId').className = 'modal-header text-danger';
     document.getElementById('btnVoltar').className = 'btn-danger';
 
-    // document.getElementById('modal-headerId').classList.remove('text-success')
-    // document.getElementById('btnVoltar').classList.remove('btn-success');
-    // document.getElementById('modal-headerId').classList.add('text-danger')
-    // document.getElementById('btnVoltar').classList.add('btn-danger');
-    $('#registraDespesa').modal('show');
+  $('#registraDespesa').modal('show');
   }
 }
 
+// Exibe a lista com os dados que já foram inseridos. 
 function carregaListaDespesas(){
   let items = Array();
 
@@ -131,20 +134,30 @@ function carregaListaDespesas(){
     linha.insertCell(1).innerHTML = x.tipo;
     linha.insertCell(2).innerHTML = x.descricao; 
     linha.insertCell(3).innerHTML = x.valor; 
-     
-
   });
+}
 
+// Limpa os campos após serem devidamente preenchidos
+function limpaCampos(){
+  document.getElementById('data').value = ''
+  document.getElementById('tipo').value = ''
+  document.getElementById('descricao').value = ''
+  document.getElementById('valor').value = ''
+}
+
+function pesquisarDespesa(){
+  let data = document.getElementById('data').value;
+  let tipo = document.getElementById('tipo').value;
+  let descricao = document.getElementById('descricao').value;
+  let valor = document.getElementById('valor').value;
+
+  let despesa = new Despesa(data, tipo, descricao, valor);
+
+  bd.pesquisar(despesa);
 }
 
 
-{/* <tbody id="listaItens">
-            <tr>
-              <th scope="row">04/02/2020</th>
-              <td>Saúde</td>
-              <td>Dentista</td>
-              <td>90.00</td>
-            </tr> */}
+
 
 
 
