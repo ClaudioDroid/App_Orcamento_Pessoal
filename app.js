@@ -42,7 +42,6 @@ class Bd{
   }
 
   recuperarTodosRegistros(){
-    console.log('Estamos chegando aqui...');
     let i;
     let items = Array();
     for(i=0; i<=localStorage.length; i++){
@@ -56,7 +55,29 @@ class Bd{
   }
 
   pesquisar(itens){
-    console.log(itens);
+    let despesasFiltradas = Array();
+
+    despesasFiltradas = this.recuperarTodosRegistros();
+
+    console.log(despesasFiltradas);
+    if (itens.data != ''){
+      console.log('filtro de data')
+      despesasFiltradas = despesasFiltradas.filter(f => f.data == itens.data);
+    }
+    if (itens.tipo != ''){
+      console.log('filtro de tipo')
+      despesasFiltradas = despesasFiltradas.filter(f => f.tipo == itens.tipo);
+    }
+    if (itens.descricao != ''){
+      console.log('filtro de descricao')
+      despesasFiltradas = despesasFiltradas.filter(f => f.descricao == itens.descricao);
+    }
+    if (itens.valor != ''){
+      console.log('filtro de valor')
+      despesasFiltradas = despesasFiltradas.filter(f => f.valor == itens.valor);
+    }
+
+    return despesasFiltradas;
   }
 }
 
@@ -104,14 +125,16 @@ function cadastrarDespesa(){
 }
 
 // Exibe a lista com os dados que já foram inseridos. 
-function carregaListaDespesas(){
-  let items = Array();
-
-  items = bd.recuperarTodosRegistros();
+function carregaListaDespesas(despesas = Array(), filtro = false){
+  //Se o resultado da pesquisa for vazio, serão exibidos todos os itens.
+  if (despesas.length == 0 && filtro == false){
+    despesas = bd.recuperarTodosRegistros();
+  }
 
   let listaItens = document.getElementById('listaItens');
+  listaItens.innerHTML = ''
 
-  items.forEach( x => {
+  despesas.forEach( x => {
     
     // Criando as linhas
     let linha = listaItens.insertRow();
@@ -153,8 +176,15 @@ function pesquisarDespesa(){
 
   let despesa = new Despesa(data, tipo, descricao, valor);
 
-  bd.pesquisar(despesa);
+  let despesas = bd.pesquisar(despesa);
+
+  carregaListaDespesas(despesas, true);
+
+  
 }
+
+
+
 
 
 
