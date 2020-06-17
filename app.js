@@ -49,6 +49,7 @@ class Bd{
       if(item == null){
         continue
       }
+      item.id = i;
       items.push(item);
     }
     return items;
@@ -78,6 +79,9 @@ class Bd{
     }
 
     return despesasFiltradas;
+  }
+  remover(id){
+    localStorage.removeItem(id);
   }
 }
 
@@ -157,6 +161,20 @@ function carregaListaDespesas(despesas = Array(), filtro = false){
     linha.insertCell(1).innerHTML = x.tipo;
     linha.insertCell(2).innerHTML = x.descricao; 
     linha.insertCell(3).innerHTML = x.valor; 
+
+    //Criando botão de exclusão
+    let btn = document.createElement("button");
+    btn.className = 'btn-sm btn-danger';
+    btn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    btn.id = 'id_despesa_' + x.id;
+    btn.onclick = function(){
+      let id = this.id.replace('id_despesa_', '');
+      
+      bd.remover(id)
+      window.location.reload();
+    }
+    linha.insertCell(4).append(btn);
+    console.log(x)
   });
 }
 
